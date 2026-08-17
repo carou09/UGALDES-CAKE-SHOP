@@ -1,0 +1,9 @@
+legacy-php
+vendor
+composer.json
+composer.lock
+*.sql
+.env*
+README.md
+tmp
+output

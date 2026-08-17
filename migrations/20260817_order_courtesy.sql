@@ -1,0 +1,2 @@
+ALTER TABLE pedidos
+  ADD COLUMN cortesia TINYINT(1) NOT NULL DEFAULT 0 AFTER notas;
