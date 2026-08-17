@@ -104,6 +104,7 @@ async function ensureOrderSnapshotSchema() {
       if(!new Set(serviceColumns.map(column=>column.Field)).has('descripcion'))await conn.query('ALTER TABLE `servicios_adicionales` ADD COLUMN `descripcion` TEXT NULL AFTER `precio`');
       const requiredColumns = {
         pedidos: {
+          fecha_entrega: 'DATE NULL',
           cliente_nombre_snapshot: 'VARCHAR(255) NULL',
           cliente_email_snapshot: 'VARCHAR(255) NULL',
           cliente_telefono_snapshot: 'VARCHAR(80) NULL',
@@ -164,6 +165,9 @@ async function ensureOrderSnapshotSchema() {
             ps.servicio_precio_snapshot=COALESCE(ps.servicio_precio_snapshot,s.precio),
             ps.servicio_descripcion_snapshot=COALESCE(ps.servicio_descripcion_snapshot,s.descripcion)
         WHERE ps.servicio_nombre_snapshot IS NULL OR ps.servicio_descripcion_snapshot IS NULL`);
+      await conn.query(`UPDATE pedidos
+        SET fecha_entrega=fecha_evento
+        WHERE fecha_entrega IS NULL AND fecha_evento IS NOT NULL`);
       await conn.query(`UPDATE pedidos
         SET fecha_liquidacion=DATE_ADD(fecha_evento,INTERVAL 1 DAY)
         WHERE fecha_liquidacion IS NULL AND fecha_evento IS NOT NULL`);
@@ -231,6 +235,10 @@ async function ensurePortalSchema() {
           await conn.commit();
         }catch(error){await conn.rollback();throw error;}
       }
+      const [notificationOrderColumn]=await conn.query("SHOW COLUMNS FROM `notificaciones` LIKE 'pedido_id'");
+      if(!notificationOrderColumn.length)await conn.query("ALTER TABLE `notificaciones` ADD COLUMN `pedido_id` INT UNSIGNED NULL AFTER `id`, ADD COLUMN `tipo` VARCHAR(40) NULL AFTER `pedido_id`");
+      const [notificationOrderIndex]=await conn.query("SHOW INDEX FROM `notificaciones` WHERE Key_name='uq_notificaciones_pedido_tipo'");
+      if(!notificationOrderIndex.length)await conn.query("ALTER TABLE `notificaciones` ADD UNIQUE INDEX `uq_notificaciones_pedido_tipo` (`pedido_id`,`tipo`)");
       const [expenseFrequency]=await conn.query("SHOW COLUMNS FROM `gastos` LIKE 'frecuencia'");
       if(!String(expenseFrequency[0]?.Type||'').includes("'anual'"))await conn.query("ALTER TABLE `gastos` MODIFY `frecuencia` ENUM('unica','mensual','anual') NOT NULL DEFAULT 'unica'");
       await conn.query(`CREATE TABLE IF NOT EXISTS descuentos (
