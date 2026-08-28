@@ -349,10 +349,20 @@ label small { color:var(--muted); font-size:.68rem; font-weight:400; }
 }
 @media(max-width:900px) {
   .app-content,.admin-shell .admin-footer { margin-left:0; }
+  .app-content { padding-top:72px; }
   .app-header { transform:translateX(-100%); }
   html:not(.sidebar-collapsed) .app-header { transform:translateX(0); }
   .sidebar-toggle { left:0; }
   html:not(.sidebar-collapsed) .sidebar-toggle { left:246px; }
+  .form-grid,.order-form,.order-form.compact,.payment-form,.payment-registration-form { grid-template-columns:1fr; }
+  .wide { grid-column:auto; }
+  .reveal-panel-heading { align-items:center; }
+  .reveal-panel-heading .btn { flex:0 0 auto; }
+  .order-design-upload { width:100%; min-width:0; }
+  .order-design-upload input[type="file"] { max-width:100%; overflow:hidden; }
+  .order-design-upload img { width:100%; max-width:360px; height:220px; }
+  .courtesy-option { width:100%; }
+  .unified-editor-form>button,.admin-create-user>button { width:100%; }
 }
 @media(max-width:760px) {
   .app-content { padding:72px 14px 46px; }
