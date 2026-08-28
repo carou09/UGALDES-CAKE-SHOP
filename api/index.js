@@ -478,6 +478,13 @@ function monthShift(month, amount) {
   return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}`;
 }
 
+function mobileAgenda(month,items) {
+  const labels={delivery:'Pendiente por entregar',payment:'Pendiente por liquidar',liquidated:'Pedido liquidado',cancelled:'Pedido cancelado'};
+  const rows=items.filter(item=>sqlDate(item.calendar_date).startsWith(month)).sort((a,b)=>sqlDate(a.calendar_date).localeCompare(sqlDate(b.calendar_date)));
+  if(!rows.length)return '<div class="mobile-agenda"><p class="empty-state">No hay pedidos programados en este mes.</p></div>';
+  return `<div class="mobile-agenda">${rows.map(item=>`<a class="mobile-agenda-item ${item.kind||''}" href="${esc(item.link||`/admin/ver_pedido.php?id=${item.id}`)}"><time datetime="${sqlDate(item.calendar_date)}"><b>${new Date(`${sqlDate(item.calendar_date)}T12:00:00`).toLocaleDateString('es-MX',{day:'2-digit',month:'short'})}</b><span>${new Date(`${sqlDate(item.calendar_date)}T12:00:00`).toLocaleDateString('es-MX',{weekday:'short'})}</span></time><div><small>${esc(labels[item.kind]||'Pedido')}</small><strong>${esc(item.cliente_nombre)}</strong><span>${esc(item.nombre_evento||'Evento')}</span></div><i aria-hidden="true">›</i></a>`).join('')}</div>`;
+}
+
 async function dashboard(res, url) {
   await syncReminders();
   const todayParts = new Intl.DateTimeFormat('en-CA',{timeZone:'America/Mexico_City',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
@@ -505,7 +512,7 @@ async function dashboard(res, url) {
     WHERE p.cancelado=1 AND p.fecha_cancelacion IS NOT NULL ORDER BY p.fecha_cancelacion`);
   const monthLabel = new Date(`${month}-15T12:00:00`).toLocaleDateString('es-MX',{month:'long',year:'numeric'});
   const calendarItems = [...pendingDelivery,...pendingPayment,...liquidatedOrders,...cancelledOrders];
-  const content = `<section class="dashboard-heading"><p class="eyebrow">RESUMEN GENERAL</p><h1>Calendario administrativo</h1><p>Selecciona una tarea para consultar al cliente y completar la siguiente etapa del pedido.</p></section><section class="calendar-section"><h2 class="calendar-month-label">${esc(monthLabel)}</h2><div class="month-nav"><a class="btn btn-secondary" href="?mes=${monthShift(month,-1)}">Mes anterior</a><a class="btn btn-primary btn-today" href="?mes=${currentMonth}">DÍA &amp; MES ACTUAL</a><a class="btn btn-secondary" href="?mes=${monthShift(month,1)}">Mes siguiente</a></div><div class="calendar-legends"><div class="section-title"><span class="legend delivery"></span><h2>PEDIDO PENDIENTE POR ENTREGAR</h2></div><div class="section-title"><span class="legend payment"></span><h2>PEDIDO PENDIENTE A LIQUIDAR</h2></div><div class="section-title"><span class="legend liquidated"></span><h2>PEDIDO LIQUIDADO</h2></div><div class="section-title"><span class="legend cancelled"></span><h2>PEDIDO CANCELADO</h2></div></div>${calendar(month,calendarItems,'calendar_date',today)}</section>`;
+  const content = `<section class="dashboard-heading"><p class="eyebrow">RESUMEN GENERAL</p><h1>Calendario administrativo</h1><p>Selecciona una tarea para consultar al cliente y completar la siguiente etapa del pedido.</p></section><section class="calendar-section"><h2 class="calendar-month-label">${esc(monthLabel)}</h2><div class="month-nav"><a class="btn btn-secondary" href="?mes=${monthShift(month,-1)}">Mes anterior</a><a class="btn btn-primary btn-today" href="?mes=${currentMonth}">DÍA &amp; MES ACTUAL</a><a class="btn btn-secondary" href="?mes=${monthShift(month,1)}">Mes siguiente</a></div><div class="calendar-legends"><div class="section-title"><span class="legend delivery"></span><h2>PEDIDO PENDIENTE POR ENTREGAR</h2></div><div class="section-title"><span class="legend payment"></span><h2>PEDIDO PENDIENTE A LIQUIDAR</h2></div><div class="section-title"><span class="legend liquidated"></span><h2>PEDIDO LIQUIDADO</h2></div><div class="section-title"><span class="legend cancelled"></span><h2>PEDIDO CANCELADO</h2></div></div>${calendar(month,calendarItems,'calendar_date',today)}${mobileAgenda(month,calendarItems)}</section>`;
   html(res, layout('Resumen administrativo', content, true, await unread()));
 }
 

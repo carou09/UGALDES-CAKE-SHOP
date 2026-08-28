@@ -163,6 +163,7 @@ label small { color:var(--muted); font-size:.68rem; font-weight:400; }
 .calendar-event:hover { transform:translateY(-1px); filter:saturate(1.2); }
 .calendar-event b,.calendar-event span { display:block; }
 .calendar-event span { opacity:.8; }
+.mobile-agenda { display:none; }
 
 /* Catálogos */
 .editable-list,.catalog-list { display:grid; gap:12px; }
@@ -354,12 +355,44 @@ label small { color:var(--muted); font-size:.68rem; font-weight:400; }
   html:not(.sidebar-collapsed) .sidebar-toggle { left:246px; }
 }
 @media(max-width:760px) {
-  .app-content { padding:24px 16px 50px; }
+  .app-content { padding:72px 14px 46px; }
+  .sidebar-toggle { top:14px; width:46px; height:46px; border-radius:0 10px 10px 0; }
+  html:not(.sidebar-collapsed) .sidebar-toggle { left:246px; }
+  .page-heading,.dashboard-heading { margin:0 0 24px; }
+  .page-heading h1,.dashboard-heading h1 { font-size:clamp(2rem,10vw,2.65rem); }
+  .dashboard-heading p:last-child { margin-bottom:0; font-size:.88rem; }
   .page-heading.split { align-items:flex-start; flex-direction:column; }
-  .month-nav { flex-wrap:wrap; }
-  .calendar { overflow-x:auto; }
-  .calendar-week,.calendar-grid { min-width:760px; }
+  .page-heading.split>.button-group { width:100%; justify-content:flex-start; }
+  .button-group .btn { flex:1 1 140px; }
+  .btn { min-height:44px; padding:12px 17px; }
+  .card { padding:20px; border-radius:12px; margin-bottom:18px; }
+  .card h1,.card h2 { font-size:1.5rem; }
+  input,select,textarea { min-height:46px; font-size:16px; }
+  textarea { min-height:110px; }
+  .month-nav { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-bottom:20px; }
+  .month-nav .btn { width:100%; padding:11px 8px; }
+  .month-nav .btn-today { grid-column:1/-1; grid-row:1; }
+  .calendar-legends { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-bottom:18px; text-align:left; }
+  .calendar-legends .section-title { align-items:flex-start; gap:7px; }
+  .calendar-legends .section-title h2 { font-size:.63rem; line-height:1.35; letter-spacing:.07em; }
+  .legend { flex:0 0 10px; width:10px; height:10px; margin-top:2px; }
+  .calendar { display:none; }
+  .mobile-agenda { display:grid; gap:10px; }
+  .mobile-agenda-item { display:grid; grid-template-columns:58px minmax(0,1fr) 18px; gap:12px; align-items:center; min-height:82px; padding:12px; border:1px solid var(--line); border-left:5px solid currentColor; border-radius:11px; background:#fff; color:var(--ink); text-decoration:none; box-shadow:0 7px 20px rgba(92,52,48,.07); }
+  .mobile-agenda-item.delivery { color:#7f3142; }
+  .mobile-agenda-item.payment { color:#824f24; }
+  .mobile-agenda-item.liquidated { color:#286149; }
+  .mobile-agenda-item.cancelled { color:#8f2f3d; }
+  .mobile-agenda-item time { display:grid; place-items:center; align-self:stretch; padding:7px 4px; border-radius:8px; background:var(--paper); text-align:center; }
+  .mobile-agenda-item time b { font-size:.78rem; text-transform:uppercase; }
+  .mobile-agenda-item time span { color:var(--muted); font-size:.67rem; text-transform:capitalize; }
+  .mobile-agenda-item>div { display:grid; min-width:0; }
+  .mobile-agenda-item small { margin-bottom:2px; color:currentColor; font-size:.62rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; }
+  .mobile-agenda-item strong { color:var(--ink); font-size:.88rem; }
+  .mobile-agenda-item>div span { color:var(--muted); font-size:.75rem; }
+  .mobile-agenda-item i { color:currentColor; font-size:1.6rem; font-style:normal; }
   .order-card { grid-template-columns:1fr; gap:10px; }
+  .order-card>.btn { width:100%; }
   .order-money { text-align:left; }
   .payment-form,.payment-registration-form,.payment-row,.payment-head { grid-template-columns:1fr 1fr; }
   .payment-head-readonly,.payment-row-readonly { grid-template-columns:1fr 1fr 1.4fr; }
@@ -370,10 +403,18 @@ label small { color:var(--muted); font-size:.68rem; font-weight:400; }
   .workflow-status-grid { grid-template-columns:1fr; }
   .order-design-card { align-items:flex-start; flex-direction:column; }
   .order-design-thumbnail { flex-basis:auto; width:100%; max-width:280px; height:190px; }
+  .image-lightbox { width:calc(100vw - 20px); padding:52px 10px 10px; border-radius:12px; }
+  .cancel-order-dialog { width:calc(100vw - 24px); max-height:88vh; padding:20px; overflow-y:auto; }
+  .dialog-actions .btn { flex:1 1 130px; }
   .order-cancellation-summary dl { grid-template-columns:1fr; }
   .workflow-status { min-height:0; }
   .finance-summary { grid-template-columns:1fr; }
   .section-lock-form,.remove-lock-form { grid-template-columns:1fr; }
+  .table-scroll { margin:0 -6px; border:1px solid var(--line); border-radius:8px; -webkit-overflow-scrolling:touch; }
+  .data-table th,.data-table td { padding:12px 10px; }
+  .notification-card { grid-template-columns:auto minmax(0,1fr); padding:14px; }
+  .notification-card em { grid-column:2; }
+  .admin-footer { padding:22px 14px; }
 }
 @media(max-width:520px) {
   .admin-brand span { display:flex; }
@@ -383,10 +424,17 @@ label small { color:var(--muted); font-size:.68rem; font-weight:400; }
   .payment-row-readonly { grid-template-columns:1fr; gap:5px; }
   .catalog-search { align-items:stretch; flex-direction:column; }
   .search-form { align-items:stretch; flex-direction:column; }
+  .search-form .btn { width:100%; }
   .wide { grid-column:auto; }
   .totals { grid-template-columns:1fr; }
   .summary-card dl>div { grid-template-columns:1fr; gap:2px; }
   .tab-link { font-size:.68rem; padding:7px 8px; }
+  .summary-actions,.dialog-actions { align-items:stretch; flex-direction:column; }
+  .summary-actions .btn,.summary-actions form,.summary-actions form .btn,.dialog-actions .btn { width:100%; }
+  .order-design-card { padding:14px; }
+  .order-design-thumbnail { max-width:none; height:200px; }
+  .payment-row { padding:14px; border-radius:8px; }
+  .finance-filter,.finance-filter label,.finance-filter .btn { width:100%; }
 }
 /* Pedidos, descuentos y edición de pagos */
 .order-notes { white-space: pre-wrap; line-height: 1.6; }
