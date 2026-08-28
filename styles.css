@@ -227,7 +227,7 @@ label small { color:var(--muted); font-size:.68rem; font-weight:400; }
 .totals b { display:block; color:var(--rose-dark); font-size:1rem; }
 .summary-actions { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
 .summary-actions form { margin:0; }
-.workflow-status-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin:16px 0 18px; }
+.workflow-status-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:16px 0 18px; }
 .workflow-status { display:flex; flex-direction:column; gap:10px; min-width:0; min-height:132px; padding:14px; border:1px solid var(--line); border-radius:10px; background:#fff; box-shadow:0 8px 20px rgba(71,45,45,.04); }
 .workflow-status.is-complete { border-color:#c8e3d5; background:linear-gradient(145deg,#f7fcf9,#edf8f3); }
 .workflow-status.is-pending { border-color:#ecc8d0; background:linear-gradient(145deg,#fffafa,#fdf1f3); }
@@ -244,6 +244,14 @@ label small { color:var(--muted); font-size:.68rem; font-weight:400; }
 .workflow-status.is-waiting>strong { background:#ebe7e5; color:#756b68; }
 .workflow-status form { margin:0; }
 .workflow-status .btn { width:max-content; min-height:34px; margin-top:auto; padding:7px 10px; font-size:.68rem; }
+.order-design-card { display:grid; grid-template-columns:minmax(160px,260px) 1fr; gap:14px 18px; align-items:center; margin:18px 0; padding:16px; border:1px solid var(--line); border-radius:12px; background:var(--blush); }
+.order-design-card h3 { grid-column:1/-1; margin:0; }
+.order-design-card a { display:block; }
+.order-design-card img,.order-design-upload img { display:block; width:100%; max-width:420px; max-height:340px; border-radius:10px; object-fit:contain; background:#fff; box-shadow:0 8px 24px rgba(71,45,45,.1); }
+.order-design-card small { color:var(--muted); overflow-wrap:anywhere; }
+.order-design-card.empty { grid-template-columns:1fr; }
+.order-design-upload { display:grid; gap:8px; }
+.order-design-upload input[type="file"] { padding:10px; border:1px dashed var(--rose); border-radius:8px; background:#fff; }
 .workflow-payment-actions { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-top:auto; }
 .order-form.compact { grid-template-columns:repeat(2,minmax(140px,1fr)); }
 .payment-form { grid-template-columns:1fr 1fr 1fr auto; }
@@ -311,6 +319,7 @@ label small { color:var(--muted); font-size:.68rem; font-weight:400; }
   .catalog-row { grid-template-columns:1fr 1fr; }
   .catalog-row .wide { grid-column:1/-1; }
   .payment-registration-form { grid-template-columns:repeat(2,minmax(150px,1fr)); }
+  .workflow-status-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .security-sections-grid { grid-template-columns:1fr; }
   .finance-filter-heading { align-items:flex-start; flex-direction:column; }
 }
@@ -336,6 +345,7 @@ label small { color:var(--muted); font-size:.68rem; font-weight:400; }
   .order-view-tab { border-right:0; border-bottom:1px solid var(--line); }
   .order-tab-panel { padding:18px; }
   .workflow-status-grid { grid-template-columns:1fr; }
+  .order-design-card { grid-template-columns:1fr; }
   .workflow-status { min-height:0; }
   .finance-summary { grid-template-columns:1fr; }
   .section-lock-form,.remove-lock-form { grid-template-columns:1fr; }
