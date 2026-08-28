@@ -1,6 +1,16 @@
 (() => {
   const snapshots = new WeakMap();
 
+  document.addEventListener('click', event => {
+    const link = event.target.closest('#admin-sidebar .tab-link');
+    if (!link || !matchMedia('(max-width:900px)').matches) return;
+    document.documentElement.classList.add('sidebar-collapsed');
+    const toggle = document.querySelector('.sidebar-toggle');
+    toggle?.setAttribute('aria-expanded','false');
+    toggle?.setAttribute('aria-label','Abrir menú');
+    try { localStorage.setItem('ugalde_sidebar','closed'); } catch {}
+  },true);
+
   const editableFields = row => [...row.querySelectorAll('input[form], textarea[form], select[form]')];
 
   const syncClientEmail = row => {
