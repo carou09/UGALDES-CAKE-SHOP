@@ -148,6 +148,7 @@ label small { color:var(--muted); font-size:.68rem; font-weight:400; }
 .legend.delivery,.calendar-event.delivery { background:#f5dfe3; color:#7f3142; }
 .legend.payment,.calendar-event.payment { background:#f7e8d9; color:#824f24; }
 .legend.liquidated,.calendar-event.liquidated { background:#dff0e8; color:#286149; }
+.legend.cancelled,.calendar-event.cancelled { background:#f4d6da; color:#8f2f3d; }
 .calendar { border:1px solid var(--line); background:#fff; box-shadow:0 8px 25px rgba(92,52,48,.05); overflow:hidden; }
 .calendar-week,.calendar-grid { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); }
 .calendar-week { background:var(--ink); color:#fff; }
