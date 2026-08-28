@@ -88,6 +88,8 @@ html.sidebar-collapsed .app-content,html.sidebar-collapsed .admin-shell .admin-f
 fieldset { margin:0; padding:16px; border:1px solid var(--line); }
 legend { padding:0 7px; color:var(--muted); font-size:.76rem; font-weight:600; }
 input,select,textarea { width:100%; padding:11px 12px; border:1px solid #d7c7c3; border-radius:6px; background:#fff; color:var(--ink); font:inherit; }
+input[type="date"],input[type="time"],input[type="datetime-local"] { display:block; min-width:0; max-width:100%; }
+input[type="date"]::-webkit-date-and-time-value,input[type="time"]::-webkit-date-and-time-value,input[type="datetime-local"]::-webkit-date-and-time-value { min-width:0; text-align:left; }
 textarea { resize:vertical; }
 input:focus,select:focus,textarea:focus { outline:2px solid rgba(198,92,112,.2); border-color:var(--rose); }
 label small { color:var(--muted); font-size:.68rem; font-weight:400; }
@@ -356,6 +358,7 @@ label small { color:var(--muted); font-size:.68rem; font-weight:400; }
   .sidebar-toggle { left:0; }
   html:not(.sidebar-collapsed) .sidebar-toggle { left:246px; }
   .form-grid,.order-form,.new-order .order-form,.order-form.compact,.payment-form,.payment-registration-form { grid-template-columns:1fr; }
+  .form-grid>*,.order-form>*,.payment-form>*,.payment-registration-form>* { min-width:0; max-width:100%; }
   .wide { grid-column:auto; }
   .reveal-panel-heading { align-items:center; }
   .reveal-panel-heading .btn { flex:0 0 auto; }
