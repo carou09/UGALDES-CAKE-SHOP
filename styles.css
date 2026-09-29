@@ -307,8 +307,21 @@ label small { color:var(--muted); font-size:.68rem; font-weight:400; }
 .courtesy-option input { width:19px; height:19px; margin:0; accent-color:var(--rose-dark); }
 .courtesy-option span { display:grid; gap:2px; color:var(--ink); }
 .courtesy-option small { color:var(--muted); font-weight:400; }
-.client-edit-dialog .button-group { display:flex; flex-wrap:wrap; gap:10px; justify-content:flex-end; }
-.client-edit-dialog .client-email-field { align-self:start; }
+.client-edit-dialog { width:min(980px,calc(100vw - 32px)); }
+.catalog-edit-dialog .client-edit-form { grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; padding:30px; }
+.client-edit-heading { align-items:center; margin-bottom:4px; padding-bottom:20px; }
+.client-edit-heading h2 { margin:2px 0 0; padding:0; border:0; }
+.client-edit-heading small { display:block; margin-top:4px; color:var(--muted); font-size:.72rem; }
+.client-edit-dialog .client-email-field { align-self:start; gap:9px; }
+.client-edit-dialog .client-no-email { align-items:flex-start; padding:10px 12px; border:1px solid var(--line); border-radius:9px; background:var(--paper); }
+.client-edit-dialog .client-no-email input { flex:0 0 17px; width:17px; height:17px; margin-top:2px; }
+.client-edit-dialog .client-no-email span { display:grid; gap:1px; white-space:normal; }
+.client-edit-dialog .client-no-email b { color:var(--ink); font-size:.7rem; }
+.client-edit-dialog .client-no-email small { color:var(--muted); font-size:.63rem; font-weight:400; line-height:1.35; }
+.client-edit-actions { display:flex; align-items:center; justify-content:space-between; gap:18px; padding-top:20px; border-top:1px solid var(--line); }
+.client-edit-actions p { margin:0; color:var(--muted); font-size:.72rem; }
+.client-edit-actions .button-group { display:flex; flex-wrap:wrap; gap:10px; justify-content:flex-end; }
+.client-save-form button:disabled { cursor:wait; opacity:.68; }
 .client-registration-card { overflow:hidden; border-radius:16px; background:linear-gradient(145deg,#fff 0%,#fff 72%,#fff8f6 100%); }
 .client-form-heading { align-items:center; margin-bottom:26px; padding-bottom:20px; }
 .client-form-title { display:flex; align-items:center; gap:15px; min-width:0; }
@@ -456,6 +469,9 @@ label small { color:var(--muted); font-size:.68rem; font-weight:400; }
   .client-form-title small { font-size:.7rem; }
   .client-form-actions { align-items:stretch; flex-direction:column; }
   .client-form-actions .btn { width:100%; min-width:0; }
+  .catalog-edit-dialog .client-edit-form { grid-template-columns:1fr; padding:22px; }
+  .client-edit-actions { align-items:stretch; flex-direction:column; }
+  .client-edit-actions .button-group,.client-edit-actions .btn { width:100%; }
 }
 @media(max-width:520px) {
   .admin-brand span { display:flex; }
