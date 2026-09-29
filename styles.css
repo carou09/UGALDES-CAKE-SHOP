@@ -308,7 +308,7 @@ label small { color:var(--muted); font-size:.68rem; font-weight:400; }
 .courtesy-option span { display:grid; gap:2px; color:var(--ink); }
 .courtesy-option small { color:var(--muted); font-weight:400; }
 .client-edit-dialog { width:min(980px,calc(100vw - 32px)); }
-.catalog-edit-dialog .client-edit-form { grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; padding:30px; }
+.catalog-edit-dialog .client-edit-form { grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; align-items:start; padding:30px; }
 .client-edit-heading { align-items:center; margin-bottom:4px; padding-bottom:20px; }
 .client-edit-heading h2 { margin:2px 0 0; padding:0; border:0; }
 .client-edit-heading small { display:block; margin-top:4px; color:var(--muted); font-size:.72rem; }
